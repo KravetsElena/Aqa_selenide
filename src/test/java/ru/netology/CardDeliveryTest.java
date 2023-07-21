@@ -25,22 +25,23 @@ public class CardDeliveryTest {
     }
 
     @Test
-    void shouldHappyPathTest(){
+    void shouldHappyPathTest() {
 
         Calendar c = new GregorianCalendar();
         c.add(Calendar.DAY_OF_YEAR, 3); // увеличиваем на 3 дня от текущей даты
         SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy"); //придаем нужный формат дате
-        String str = format1.format(c.getTime());//c.getTime().toString();//вытягиваем измененную дату в нужном формате и присваиваем переменной
+        String date = format1.format(c.getTime());//c.getTime().toString();//вытягиваем измененную дату в нужном формате и присваиваем переменной
 
 
         SelenideElement form = $(".form, .form_size_m, .form_theme_alfa-on-white");
         form.$("[data-test-id=city] input").setValue("Казань");
-        form.$("[data-test-id=date] input").setValue(str);
+        form.$("[data-test-id=date] input").setValue(date);
         form.$("[data-test-id=name] input").setValue("Иван Соколов");
         form.$("[data-test-id=phone] input").setValue("+79092364751");
         form.$("[data-test-id=agreement]").click();
         form.$(".button").click();
         $(withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
+
 
 }
